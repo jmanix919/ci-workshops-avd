@@ -1,0 +1,85 @@
+aaa_root:
+  disabled: true
+config_end: true
+enable_password:
+  disabled: true
+ethernet_interfaces:
+- name: Ethernet2
+  description: L2_s1-spine1_Ethernet9
+  shutdown: false
+  channel_group:
+    id: 2
+    mode: active
+  peer: s1-spine1
+  peer_interface: Ethernet9
+  peer_type: l3spine
+- name: Ethernet3
+  description: L2_s1-spine2_Ethernet9
+  shutdown: false
+  channel_group:
+    id: 2
+    mode: active
+  peer: s1-spine2
+  peer_interface: Ethernet9
+  peer_type: l3spine
+hostname: s1-leaf5
+ip_igmp_snooping:
+  globally_enabled: true
+is_deployed: true
+local_users:
+- name: arista
+  privilege: 15
+  role: network-admin
+  sha512_password: $6$arista$2zg5sGqLz8i8kOVlwTUdIrB5H9DHXCzWBTBrYJ1YRsByg9Z7IGyTw3gPgIfsC4sxXdcbIALc4O/63hjvNVSqd1
+  ssh_key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDTvqNh0bQSakMjpjI2Q88eiigVFMdFkh8fbvQ5PRjYDSDXfovh83KIHEbBH5IItMTaoUJcPGwKVg/FLthpCuvRd9CqQ8kYe2yRIZevnzg9qnE4PkQnqDDrAEAlrZn10Mi33jrer6OaNYbMFctun8dQ6HodsN5os3VT/jnpW73mvkeLX8lg4eUJ906vlGS82LZVQwRCUG6u+p7Z5IzZnF4BO3Hf965rmXxXLAxdSx2JKERp440R7gS70TfgkQGhRD4WH7ZgB8AlO2bRnx4xnNuclHZiGUnOaAzodeTPYjz1NUA+50h9UG+kW8OMDzzVsBOtIkjEEAZe5FvluCxJM1gf
+    arista@fundamentals-ws-12-7e6cf4e3-eos
+management_api_http:
+  enable_https: true
+  enable_vrfs:
+  - name: default
+management_interfaces:
+- name: Management0
+  description: OOB_MANAGEMENT
+  shutdown: false
+  vrf: default
+  ip_address: 192.168.0.28/24
+  type: oob
+  gateway: 192.168.0.1
+metadata:
+  platform: cEOS
+  fabric_name: SITE1_FABRIC
+port_channel_interfaces:
+- name: Port-Channel2
+  description: L2_SPINES_Port-Channel9
+  shutdown: false
+  switchport:
+    enabled: true
+    mode: trunk
+    trunk:
+      allowed_vlan: 10,20
+service_routing_protocols_model: multi-agent
+spanning_tree:
+  mode: mstp
+  mst_instances:
+  - id: '0'
+    priority: 16384
+static_routes:
+- vrf: default
+  destination_address_prefix: 0.0.0.0/0
+  gateway: 192.168.0.1
+transceiver_qsfp_default_mode_4x10: true
+vlan_internal_order:
+  allocation: ascending
+  range:
+    beginning: 1006
+    ending: 1199
+vlans:
+- id: 10
+  name: Ten
+  tenant: MY_FABRIC
+- id: 20
+  name: Twenty
+  tenant: MY_FABRIC
+vrfs:
+- name: default
+  ip_routing: false
